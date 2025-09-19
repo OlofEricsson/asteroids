@@ -1,8 +1,11 @@
 require "gosu"
 
 require_relative "Spaceship"
+require_relative "Bullet"
 
 class Game < Gosu::Window
+
+  attr_reader :bullets
 
   def initialize
     super 1200, 800
@@ -10,11 +13,12 @@ class Game < Gosu::Window
     @L_asteroids = []
     @M_asteroids = []
     @S_asteroids = []
+    @bullets = []
 
     @middlex = self.width / 2
     @middley = self.height / 2
 
-    @player = Spaceship.new
+    @player = Spaceship.new(self)
     @player.warp(@middlex, @middley)
 
     #5.times do
@@ -34,10 +38,22 @@ class Game < Gosu::Window
       @player.accelerate
     end
     @player.move
+
+    if Gosu.button_down?(Gosu::KB_SPACE) 
+      @player.shoot
+    end
+
+    @bullets.each do |bullet|
+      bullet.move
+    end
+
   end
 
   def draw
     @player.draw
+    @bullets.each do |bullet|
+      bullet.draw
+    end
   end
 
   def button_down(id)

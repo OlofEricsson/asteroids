@@ -1,6 +1,10 @@
 class Spaceship
 
-  def initialize
+  #attr_reader :
+
+
+  def initialize(game_window)
+    @game_window = game_window
     @image = Gosu::Image.new("media/Spaceship_default.png")
     @x = @y = @vel_x = @vel_y = @angle = 0.0
     @score = 0
@@ -32,6 +36,10 @@ class Spaceship
 
     @vel_x *= 0.95
     @vel_y *= 0.95
+  end
+
+  def shoot
+      @game_window.bullets << Bullet.new(@x, @y, @vel_x, @vel_y, @angle)
   end
 
   def draw
