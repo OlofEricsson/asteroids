@@ -37,9 +37,11 @@ class Game < Gosu::Window
     if Gosu.button_down?(Gosu::KB_UP) || Gosu::button_down?(Gosu::GP_BUTTON_0) || Gosu::button_down?(Gosu::KB_W)
       @player.accelerate
     end
+
     @player.move
 
     if Gosu.button_down?(Gosu::KB_SPACE) 
+      #if Time.now
       @player.shoot
     end
 

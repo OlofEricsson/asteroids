@@ -10,14 +10,13 @@ class Bullet
   end
 
   def move
-    @x += @vel_x
-    @y += @vel_y
-    @x %= 1200
-    @y %= 800
+    @x += @vel_x + Gosu.offset_x(@angle, 5)
+    @y += @vel_y + Gosu.offset_y(@angle, 5)
+    
   end
 
   def draw
-    @image.draw_rot(@x, @y, 1, @angle, 1, 1, 1.0, 1.0)
+    @image.draw_rot(@x, @y, 1, @angle, 1, 1, 4.0, 4.0)
   end
 
 end
