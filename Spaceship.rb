@@ -5,9 +5,12 @@ class Spaceship
 
   def initialize(game_window)
     @game_window = game_window
-    @image = Gosu::Image.new("media/Spaceship_default.png")
+    @image = Gosu::Image.new("media/Spaceship_default.png", :retro => true)
+    @shoot = Gosu::Sample.new("media/rocket-launch.mp3")
     @x = @y = @vel_x = @vel_y = @angle = 0.0
     @score = 0
+    @cooldown_time = 200
+    @last_shot = 0 
   end
 
   def warp(x, y)
@@ -34,12 +37,24 @@ class Spaceship
     @x %= 1200
     @y %= 800
 
-    @vel_x *= 0.95
-    @vel_y *= 0.95
+    @vel_x *= 0.98
+    @vel_y *= 0.98
   end
 
   def shoot
+    now = Gosu.milliseconds
+    if now - @last_shot >= @cooldown_time
+      @last_shot = now
       @game_window.bullets << Bullet.new(@x, @y, @vel_x, @vel_y, @angle)
+      @shoot.play
+    end
+  end
+
+  def vel_x
+    return @vel_x
+  end
+  def vel_y
+    return @vel_y
   end
 
   def draw

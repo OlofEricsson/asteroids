@@ -1,7 +1,7 @@
 class Bullet
 
   def initialize(startx, starty, startvelx, startvely, startangle)  
-    @image = Gosu::Image.new("media/Bullet.png")
+    @image = Gosu::Image.new("media/Bullet.png", :retro => true)
     @x = startx
     @y = starty
     @vel_x = startvelx
@@ -16,7 +16,11 @@ class Bullet
   end
 
   def draw
-    @image.draw_rot(@x, @y, 1, @angle, 1, 1, 4.0, 4.0)
+    @image.draw_rot(@x, @y, 1, @angle, 0.5, 0.5, 5, 5)
+  end
+
+  def off_screen?(window_width, window_height)
+    @x < 0 || @x > window_width || @y < 0 || @y > window_height
   end
 
 end

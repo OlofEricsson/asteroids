@@ -21,6 +21,11 @@ class Game < Gosu::Window
     @player = Spaceship.new(self)
     @player.warp(@middlex, @middley)
 
+    @background = Gosu::Image.new("media/spacebackground2.png", :retro => true)
+
+    @bg_offsetx = 0
+    @bg_offsety = 0
+
     #5.times do
       #@big_asteroids << Asteroid.new()
     #end
@@ -40,6 +45,9 @@ class Game < Gosu::Window
 
     @player.move
 
+    @bg_offsetx -= @player.vel_x * 0.3
+    @bg_offsety -= @player.vel_y * 0.3
+
     if Gosu.button_down?(Gosu::KB_SPACE) 
       #if Time.now
       @player.shoot
@@ -49,9 +57,16 @@ class Game < Gosu::Window
       bullet.move
     end
 
+    @bullets.delete_if do |bullet|
+      bullet.off_screen?(1200, 800)
+    end
+
   end
 
   def draw
+
+    @background.draw(@bg_offsetx - 1032, @bg_offsety - 668, 0, 2, 2)
+
     @player.draw
     @bullets.each do |bullet|
       bullet.draw
