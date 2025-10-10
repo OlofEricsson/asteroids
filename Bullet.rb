@@ -12,7 +12,6 @@ class Bullet
   def move
     @x += @vel_x + Gosu.offset_x(@angle, 5)
     @y += @vel_y + Gosu.offset_y(@angle, 5)
-    
   end
 
   def draw

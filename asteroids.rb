@@ -2,6 +2,7 @@ require "gosu"
 
 require_relative "Spaceship"
 require_relative "Bullet"
+require_relative "Asteroid"
 
 class Game < Gosu::Window
 
@@ -26,9 +27,9 @@ class Game < Gosu::Window
     @bg_offsetx = 0
     @bg_offsety = 0
 
-    #5.times do
-      #@big_asteroids << Asteroid.new()
-    #end
+    3.times do
+      @L_asteroids << Asteroid.new(self)
+    end
   end
 
 
@@ -57,9 +58,19 @@ class Game < Gosu::Window
       bullet.move
     end
 
+    @L_asteroids.each do |asteroid|
+      asteroid.move
+    end
+
     @bullets.delete_if do |bullet|
       bullet.off_screen?(1200, 800)
     end
+
+    #CollisionHandler.handle_collisions(@bullets, @L_asteroids, @player)
+
+    #split_asteriods = @L_asteroids.reject {|asteroid| asteroid.grillkorv}
+
+     #@bullets.delete_if {|bullet| bullet }
 
   end
 
@@ -71,6 +82,11 @@ class Game < Gosu::Window
     @bullets.each do |bullet|
       bullet.draw
     end
+    
+    @L_asteroids.each do |asteroid|
+      asteroid.draw
+    end
+
   end
 
   def button_down(id)
