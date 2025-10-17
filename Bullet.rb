@@ -1,5 +1,7 @@
 class Bullet
 
+  attr_reader :x, :y, :width, :height
+
   def initialize(startx, starty, startvelx, startvely, startangle)  
     @image = Gosu::Image.new("media/Bullet.png", :retro => true)
     @x = startx

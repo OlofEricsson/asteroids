@@ -3,6 +3,7 @@ require "gosu"
 require_relative "Spaceship"
 require_relative "Bullet"
 require_relative "Asteroid"
+require_relative "collision_handler"
 
 class Game < Gosu::Window
 
@@ -30,6 +31,8 @@ class Game < Gosu::Window
     3.times do
       @L_asteroids << Asteroid.new(self)
     end
+
+   
   end
 
 
@@ -64,9 +67,8 @@ class Game < Gosu::Window
 
     @bullets.delete_if do |bullet|
       bullet.off_screen?(1200, 800)
+      #CollisionHandler.handle_collisions(@bullets, @L_asteroids, @player).grillkorv == true
     end
-
-    #CollisionHandler.handle_collisions(@bullets, @L_asteroids, @player)
 
     #split_asteriods = @L_asteroids.reject {|asteroid| asteroid.grillkorv}
 

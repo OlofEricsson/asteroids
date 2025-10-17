@@ -1,6 +1,7 @@
 class Asteroid
 
-  attr_reader :grillkorv, :x, :y
+  attr_reader(:x, :y, :width, :height)
+
 
   def initialize(game_window)
     @game_window = game_window
@@ -10,7 +11,22 @@ class Asteroid
     @vel_x = 0.0
     @vel_y = 0.0
     @angle = rand(0..359)
+    @width = @image.width
+    @height = @image.height
   end
+
+  def left
+    @x
+  end
+
+  def right
+    @x + @width
+  end
+
+  def bottom
+    @y + @height
+  end
+
 
   def hit_by(object)
     if object.class == Bullet
@@ -27,6 +43,7 @@ class Asteroid
   end
 
   def draw
+    Gosu.draw_rect(@x - @width, @y - @height, @width*2, @height*2, Gosu::Color.argb(0xff_808080))
     @image.draw_rot(@x, @y, 1, @angle, 0.5, 0.5, 2.0, 2.0)
   end
 

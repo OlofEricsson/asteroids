@@ -1,6 +1,6 @@
 class Spaceship
 
-  #attr_reader :
+  attr_reader :x, :y
 
 
   def initialize(game_window)
